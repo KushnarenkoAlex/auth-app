@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.get('/example', (req, res) => {
+app.post('/example', (req, res) => {
 
     console.log("REQUEST AUTH TOKEN: " + req.headers["authorization"])
 
