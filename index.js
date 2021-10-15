@@ -13,6 +13,7 @@ app.post('/example', (req, res) => {
     console.log("1 REQUEST AUTH TOKEN: " + req.headers["authorization"])
     console.log("2 REQUEST AUTH HEADERS: " + JSON.stringify(req.headers))
     console.log("2 REQUEST AUTH BODY: " + JSON.stringify(req.body))
+    console.log("2 REQUEST AUTH BODY TOKEN: " + req.body.token)
 
     var options = {
         host: 'kush.auth.us-east-2.amazoncognito.com',
