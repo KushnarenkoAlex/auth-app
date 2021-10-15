@@ -28,6 +28,7 @@ app.get('/example', (req, res) => {
         console.log("AUTH RESPONSE ERROR: " + e.message);
     }).end();
 
+    
     res.json({
         message: 'Token is valid'
     });
