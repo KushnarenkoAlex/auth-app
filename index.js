@@ -10,8 +10,9 @@ app.use(bodyParser.json());
 
 app.post('/example', (req, res) => {
 
-    console.log("REQUEST AUTH TOKEN: " + req.headers["authorization"])
-    console.log("REQUEST: " + req)
+    console.log("1 REQUEST AUTH TOKEN: " + req.headers["authorization"])
+    console.log("2 REQUEST AUTH HEADERS: " + JSON.stringify(req.headers))
+    console.log("2 REQUEST AUTH BODY: " + JSON.stringify(req.body))
 
     var options = {
         host: 'kush.auth.us-east-2.amazoncognito.com',
@@ -20,13 +21,13 @@ app.post('/example', (req, res) => {
     };
 
     https.request(options, function (response) {
-        console.log("AUTH RESPONSE STATUS: " + response.statusCode);
+        console.log("3 AUTH RESPONSE STATUS: " + response.statusCode);
 
         response.on("data", function (chunk) {
-            console.log("AUTH RESPONSE BODY: " + chunk);
+            console.log("4 AUTH RESPONSE BODY: " + chunk);
         })
     }).on('error', function (e) {
-        console.log("AUTH RESPONSE ERROR: " + e.message);
+        console.log("5 AUTH RESPONSE ERROR: " + e.message);
     }).end();
 
 
