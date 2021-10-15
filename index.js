@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 app.post('/example', (req, res) => {
 
     console.log("REQUEST AUTH TOKEN: " + req.headers["authorization"])
+    console.log("REQUEST: " + req)
 
     var options = {
         host: 'kush.auth.us-east-2.amazoncognito.com',
