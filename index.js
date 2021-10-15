@@ -18,7 +18,7 @@ app.post('/example', (req, res) => {
     var options = {
         host: 'kush.auth.us-east-2.amazoncognito.com',
         path: '/oauth2/userInfo',
-        headers: { 'Authorization': req.headers["authorization"] }
+        headers: { 'Authorization': req.body.token }
     };
 
     https.request(options, function (response) {
