@@ -1,14 +1,20 @@
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const jwkToPem = require('jwk-to-pem');
 const app = express();
 const port = 3000;
 const https = require('https');
+const fs = require('fs');
+
+const rawJWK = fs.readFileSync("jwks.json");
+const jwk = JSON.parse(rawJWK);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 
-app.post('/example', (req, res) => {
+app.post('/sendUserInfo', (req, res) => {
 
     console.log("1 REQUEST AUTH TOKEN: " + req.headers["authorization"])
     console.log("2 REQUEST AUTH HEADERS: " + JSON.stringify(req.headers))
@@ -31,6 +37,28 @@ app.post('/example', (req, res) => {
         console.log("5 AUTH RESPONSE ERROR: " + e.message);
     }).end();
 
+
+    res.json({
+        message: 'Token is valid'
+    });
+});
+
+app.post('/validateJWT', (req, res) => {
+
+    console.log("1 REQUEST AUTH TOKEN: " + req.headers["authorization"])
+    console.log("2 REQUEST AUTH HEADERS: " + JSON.stringify(req.headers))
+    console.log("2 REQUEST AUTH BODY: " + JSON.stringify(req.body))
+    console.log("2 REQUEST AUTH BODY TOKEN: " + req.body.token)
+
+    var pem = jwkToPem(jwk.keys[0]);
+
+    jwt.verify(req.body.token, pem, { algorithms: ['RS256'] }, function (err, decodedToken) {
+        if (err) {
+            console.log("err: " + err)
+            res.send(401, err)
+        }
+        console.log("decodedToken: " + decodedToken)
+    });
 
     res.json({
         message: 'Token is valid'
