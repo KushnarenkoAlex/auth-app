@@ -57,6 +57,7 @@ app.post('/validateJWT', (req, res) => {
             console.log("err: " + err)
             res.send(401, err)
         }
+        res.set('active', 'true');
         console.log("decodedToken: " + JSON.stringify(decodedToken))
         res.send(200, decodedToken)
     });
