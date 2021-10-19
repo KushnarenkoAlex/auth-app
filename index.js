@@ -55,10 +55,10 @@ app.post('/validateJWT', (req, res) => {
     jwt.verify(req.body.token, pem, { algorithms: ['RS256'] }, function (err, decodedToken) {
         if (err) {
             console.log("err: " + err);
-            res.status(200).send(err);
+            res.status(401).send(err);
         }
-        res.set('active', 'true');
         console.log("decodedToken: " + JSON.stringify(decodedToken));
+        decodedToken.active = true;
         res.status(200).send(decodedToken);
     });
 });
