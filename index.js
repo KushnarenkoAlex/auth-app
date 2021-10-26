@@ -69,7 +69,10 @@ app.post('/validateJWT', (req, res) => {
         })
         var responseBody = new Object();
         responseBody.active = true;
-        responseBody.scope = ctManageMyOrdersScopes.join(" ") + " " + ctManageOrdersScopes.join(" ") + " customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
+        responseBody.scope = ctManageMyOrdersScopes.join(" ") + " " +
+            ctManageOrdersScopes.join(" ") + " " +
+            ctViewOrdersScopes.join(" ") + " " +
+            "customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
         res.status(200).send(responseBody);
     });
 
