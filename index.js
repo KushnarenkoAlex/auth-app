@@ -47,8 +47,7 @@ app.post('/validateJWT', (req, res) => {
 
     console.log("1 REQUEST AUTH TOKEN: " + req.headers["authorization"])
     console.log("2 REQUEST AUTH HEADERS: " + JSON.stringify(req.headers))
-    console.log("2 REQUEST AUTH BODY: " + JSON.stringify(req.body))
-    console.log("2 REQUEST AUTH BODY TOKEN: " + req.body.token)
+    console.log("3 REQUEST AUTH BODY: " + JSON.stringify(req.body))
 
     var pem = jwkToPem(jwk.keys[0]);
 
@@ -58,9 +57,19 @@ app.post('/validateJWT', (req, res) => {
             res.status(401).send(err);
         }
         console.log("decodedToken: " + JSON.stringify(decodedToken));
-        decodedToken.active = true;
-        res.status(200).send(decodedToken);
+        var ctscopes = decodedToken.soldTo.map(function (soldToId) {
+            return "manage_my_orders:daria-selling-plants" + soldToId
+        })
+        var responseBody = new Object();
+        responseBody.active = true;
+        responseBody.scope = ctscopes;
+        res.status(200).send(responseBody);
     });
+
+});
+
+app.post('/ok', (req, res) => {
+    res.status(200).send("OK");
 });
 
 app.listen(port, () => console.log(`Hello world app listening on port ${port}!`));
