@@ -64,7 +64,7 @@ app.post('/validateJWT', (req, res) => {
         ctScopes
         var responseBody = new Object();
         responseBody.active = true;
-        responseBody.scope = ctScopes.join(" ");
+        responseBody.scope = ctScopes.join(" ") + " customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
         res.status(200).send(responseBody);
     });
 
