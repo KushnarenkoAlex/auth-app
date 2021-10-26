@@ -58,13 +58,16 @@ app.post('/validateJWT', (req, res) => {
         }
         console.log("decodedToken: " + JSON.stringify(decodedToken));
         var customerIDs = decodedToken.customerIDs.split(",")
-        var ctScopes = customerIDs.map(function (soldToId) {
+        var ctManageMyOrdersScopes = customerIDs.map(function (soldToId) {
             return "manage_my_orders:daria-selling-plants:" + soldToId
+        })
+        var ctManageOrdersScopes = customerIDs.map(function (soldToId) {
+            return "manage_orders:daria-selling-plants:" + soldToId
         })
         ctScopes
         var responseBody = new Object();
         responseBody.active = true;
-        responseBody.scope = ctScopes.join(" ") + " customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
+        responseBody.scope = ctManageMyOrdersScopes.join(" ") + " " + ctManageOrdersScopes.join(" ") + " customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
         res.status(200).send(responseBody);
     });
 
