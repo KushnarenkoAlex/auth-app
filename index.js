@@ -68,7 +68,10 @@ app.post('/validateJWT', (req, res) => {
 
 });
 
-app.post('/ok', (req, res) => {
+app.post('/okPost', (req, res) => {
+    res.status(200).send("OK");
+});
+app.get('/okGet', (req, res) => {
     res.status(200).send("OK");
 });
 
