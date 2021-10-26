@@ -64,7 +64,6 @@ app.post('/validateJWT', (req, res) => {
         var ctManageOrdersScopes = customerIDs.map(function (soldToId) {
             return "manage_orders:daria-selling-plants:" + soldToId
         })
-        ctScopes
         var responseBody = new Object();
         responseBody.active = true;
         responseBody.scope = ctManageMyOrdersScopes.join(" ") + " " + ctManageOrdersScopes.join(" ") + " customer_id:eeb6a896-3fc9-467e-9c0d-ff85692a1aa5";
