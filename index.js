@@ -61,9 +61,10 @@ app.post('/validateJWT', (req, res) => {
         var ctScopes = customerIDs.map(function (soldToId) {
             return "manage_my_orders:daria-selling-plants:" + soldToId
         })
+        ctScopes
         var responseBody = new Object();
         responseBody.active = true;
-        responseBody.scope = ctScopes;
+        responseBody.scope = ctScopes.join(" ");
         res.status(200).send(responseBody);
     });
 
