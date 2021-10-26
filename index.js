@@ -57,12 +57,13 @@ app.post('/validateJWT', (req, res) => {
             res.status(401).send(err);
         }
         console.log("decodedToken: " + JSON.stringify(decodedToken));
-        var ctscopes = decodedToken.soldTo.map(function (soldToId) {
-            return "manage_my_orders:daria-selling-plants" + soldToId
+        var customerIDs = decodedToken.customerIDs.split(",")
+        var ctScopes = customerIDs.map(function (soldToId) {
+            return "manage_my_orders:daria-selling-plants:" + soldToId
         })
         var responseBody = new Object();
         responseBody.active = true;
-        responseBody.scope = ctscopes;
+        responseBody.scope = ctScopes;
         res.status(200).send(responseBody);
     });
 
